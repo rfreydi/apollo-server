@@ -1,7 +1,16 @@
+const categoryMocks = [
+  {
+    guid: 'machine',
+    value: 'Machine'
+  }, {
+    guid: 'station',
+    value: 'Station'
+  }
+];
 const entityMocks = [
   {
     guid: 'machine1',
-    type: 'machine',
+    category: 'machine',
     properties: [
       {
         code: 'label',
@@ -13,7 +22,7 @@ const entityMocks = [
     ]
   }, {
     guid: 'station1',
-    type: 'station',
+    category: 'station',
     properties: [
       {
         code: 'label',
@@ -44,12 +53,14 @@ const propertyMocks = [
 
 const resolverMocks = {
   RootQuery: {
-    entity: (parent, args) => entityMocks.find(entity => entity.guid === args.guid),
+    categories: () => categoryMocks,
     entities: () => entityMocks,
+    entity: (parent, args) => entityMocks.find(entity => entity.guid === args.guid)
   },
   Entity: {
+    category: (entity) => categoryMocks.find(category => category.guid === entity.category),
     properties: (entity) => {
-      const pm = propertyMocks
+      return propertyMocks
         .filter(property => entity.properties
           .map(prop => prop.code)
           .includes(property.code)
@@ -61,13 +72,10 @@ const resolverMocks = {
             ...property
           };
         });
-      console.log(entity.properties);
-      return pm;
     }
   },
   Property: {
     value: (property) => {
-      // console.log(property);
       if (property.type !== 'entity') {
         return property.value;
       }

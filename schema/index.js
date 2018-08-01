@@ -4,6 +4,7 @@ const resolverMocks = require('./mocks');
 
 const RootQuery = `
   type RootQuery {
+    categories: [Category]
     entities: [Entity]
     entity(guid: String): Entity
   }
