@@ -1,4 +1,5 @@
 const Reader = require('./reader');
+const Writer = require('./writer');
 
 class DataAccess {
 
@@ -14,8 +15,48 @@ class DataAccess {
     return Reader.file('data/entities.json').then(entities => JSON.parse(entities));
   }
 
-  static async properties () {
-    return await Reader.file('data/properties.json').then(properties => JSON.parse(properties));
+  static properties () {
+    return Reader.file('data/properties.json').then(properties => JSON.parse(properties));
+  }
+
+  static addProperty ({code, type, label}) {
+    const temp = [
+      {
+        'code': 'label',
+        'type': 'string',
+        'label': 'Label',
+        'attributes': {
+          'readonly': true,
+          'required': true
+        }
+      },
+      {
+        'code': 'stations',
+        'type': 'entity',
+        'label': 'Stations',
+        'attributes': {
+          'readonly': false,
+          'required': false
+        },
+        'target': 'station'
+      }
+    ];
+    const property = {
+      code,
+      type,
+      label,
+      attributes: {
+        readonly: false,
+        required: false
+      }
+    };
+    return this.properties().then(properties => {
+      properties.push(property);
+      return Writer.file('data/properties.json', JSON.stringify(properties)).then(prop => {
+        console.log(prop);
+        return property;
+      });
+    });
   }
 }
 

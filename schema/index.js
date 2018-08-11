@@ -11,14 +11,21 @@ const RootQuery = `
   }
 `;
 
+const RootMutation = `
+  type RootMutation {
+    addProperty(code: String!, type: String!, label: String!): Property
+  }
+`;
+
 const schemaDefinition = `
   schema {
     query: RootQuery
+    mutation: RootMutation
   }
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [schemaDefinition, RootQuery, Entity],
+  typeDefs: [schemaDefinition, RootQuery, RootMutation, Entity],
   resolvers: resolverMocks
 });
 
