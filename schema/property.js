@@ -6,6 +6,7 @@ const Property = `
   type Property {
     code: String!
     type: String!
+    label: String!
     value: Value
     attributes: Attribute
   }

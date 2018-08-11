@@ -1,89 +1,39 @@
-const categoryMocks = [
-  {
-    guid: 'machine',
-    value: 'Machine'
-  }, {
-    guid: 'station',
-    value: 'Station'
-  }
-];
-const entityMocks = [
-  {
-    guid: 'machine1',
-    category: 'machine',
-    properties: [
-      {
-        code: 'label',
-        value: 'Machine 1'
-      }, {
-        code: 'stations',
-        value: ['station1', 'station2']
-      }
-    ]
-  }, {
-    guid: 'station1',
-    category: 'station',
-    properties: [
-      {
-        code: 'label',
-        value: 'Station 1'
-      }
-    ]
-  }
-];
-
-const propertyMocks = [
-  {
-    code: 'label',
-    type: 'string',
-    attributes: {
-      readonly: true,
-      required: false
-    }
-  }, {
-    code: 'stations',
-    type: 'entity',
-    attributes: {
-      readonly: false,
-      required: false,
-      target: 'station'
-    }
-  }
-];
+const DataAccess = require('../core/data-access');
 
 const resolverMocks = {
   RootQuery: {
-    categories: () => categoryMocks,
-    entities: () => entityMocks,
-    entity: (parent, args) => entityMocks.find(entity => entity.guid === args.guid)
+    categories: () => DataAccess.categories(),
+    entities: () => DataAccess.entities(),
+    entity: (parent, args) => DataAccess.entities().find(entity => entity.guid === args.guid),
+    properties: () => DataAccess.properties()
   },
   Entity: {
-    category: (entity) => categoryMocks.find(category => category.guid === entity.category),
-    properties: (entity) => {
-      return propertyMocks
-        .filter(property => entity.properties
+    category: (entity) => DataAccess.categories().then(categories => categories.find(category => category.guid === entity.category)),
+    properties: (entity) =>
+      DataAccess.properties().then((properties) =>
+        properties.filter(property => entity.properties
           .map(prop => prop.code)
           .includes(property.code)
-        )
-        .map(property => {
+        ).map(property => {
           const entProp = entity.properties.find(e => e.code === property.code);
           return {
             ...entProp,
             ...property
           };
-        });
-    }
+        })
+      )
   },
   Property: {
     value: (property) => {
-      if (property.type !== 'entity') {
+      if (property.type !== 'entity' || !property.value) {
         return property.value;
       }
 
-      return entityMocks
-        .filter(entity => property.value
+      return DataAccess.entities().then(entities =>
+        entities.filter(entity => property.value
           .includes(entity.guid)
-        );
+        )
+      );
     }
   }
 };

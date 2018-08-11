@@ -1,0 +1,21 @@
+[
+  {
+    "code": "label",
+    "type": "string",
+    "label": "Label",
+    "attributes": {
+      "readonly": true,
+      "required": true
+    }
+  },
+  {
+    "code": "stations",
+    "type": "entity",
+    "label": "Stations",
+    "attributes": {
+      "readonly": false,
+      "required": false
+    },
+    "target": "station"
+  }
+]

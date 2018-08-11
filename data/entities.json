@@ -1,0 +1,28 @@
+[
+  {
+    "guid": "machine1",
+    "category": "machine",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Machine 1"
+      },
+      {
+        "code": "stations",
+        "value": [
+          "station1"
+        ]
+      }
+    ]
+  },
+  {
+    "guid": "station1",
+    "category": "station",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Station 1"
+      }
+    ]
+  }
+]

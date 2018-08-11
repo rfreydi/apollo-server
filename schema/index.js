@@ -7,6 +7,7 @@ const RootQuery = `
     categories: [Category]
     entities: [Entity]
     entity(guid: String): Entity
+    properties: [Property]
   }
 `;
 
