@@ -1,27 +1,92 @@
 [
   {
-    "guid": "machine1",
+    "guid": "wavis_g",
     "category": "machine",
     "properties": [
       {
         "code": "label",
-        "value": "Machine 1"
+        "value": "Wavis G"
       },
       {
         "code": "stations",
         "value": [
-          "station1"
+          "poste_de_chargement"
         ]
       }
     ]
   },
   {
-    "guid": "station1",
+    "guid": "becker_3",
+    "category": "machine",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Becker 3"
+      },
+      {
+        "code": "stations",
+        "value": [
+          "poste_de_chargement",
+          "finition_alesage",
+          "purge"
+        ]
+      }
+    ]
+  },
+  {
+    "guid": "hoffmann_17",
+    "category": "machine",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Hoffman 17"
+      },
+      {
+        "code": "stations",
+        "value": [
+          "poste_de_chargement",
+          "rainure_joint"
+        ]
+      }
+    ]
+  },
+  {
+    "guid": "poste_de_chargement",
     "category": "station",
     "properties": [
       {
         "code": "label",
-        "value": "Station 1"
+        "value": "Poste de chargement"
+      }
+    ]
+  },
+  {
+    "guid": "finition_alesage",
+    "category": "station",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Finition / Alesage"
+      }
+    ]
+  },
+  {
+    "guid": "purge",
+    "category": "station",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Purge"
+      }
+    ]
+  },
+  {
+    "guid": "rainure_joint",
+    "category": "station",
+    "properties": [
+      {
+        "code": "label",
+        "value": "Rainure joint"
       }
     ]
   }
